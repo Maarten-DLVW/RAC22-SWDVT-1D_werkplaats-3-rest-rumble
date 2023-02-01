@@ -17,7 +17,7 @@ def index():
 def docentlogin():
     return render_template("docentlogin.html")
 
-@app.route("/studentlogin")
+@app.route("/studentLogin/", methods=['POST, GET'])
 def studentlogin():
     if request.method == 'POST':
         if request.form['username'] != '' or request.form[password] != '' :
