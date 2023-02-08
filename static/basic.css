@@ -17,7 +17,7 @@
 @media (prefers-color-scheme: dark) {
 	:root {
     --c2:#b8b8b8;
-    --c3:#f0f2f5;
+    --c3:#fff0e2;
     --c4:#0b2c80;
 	}
 }
@@ -146,3 +146,15 @@ section>section {
 	position:relative;
 	top:1px;
 }
+
+/* remove bullets from <li>*/
+li {
+    list-style-type: none;
+}
+
+img {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+  }
