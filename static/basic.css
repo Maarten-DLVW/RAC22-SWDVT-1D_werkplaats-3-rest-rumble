@@ -138,11 +138,11 @@ section>section {
 	text-shadow:0px 1px 0px #6b0726;
     margin-top: 20px;
 }
-.buttonstyle_green:hover {
+.buttonstyle_red:hover {
 	background-color:#a10d3c;
-    text-decoration-color: #000;
+    text-decoration-color: #fff;
 }
-.buttonstyle_green:active {
+.buttonstyle_red:active {
 	position:relative;
 	top:1px;
 }
@@ -158,3 +158,21 @@ img {
     margin-right: 10px;
     margin-left: 10px;
   }
+
+/* remove blue from links */
+a:link {
+color: white;
+text-decoration: none;
+}
+a:visited {
+color: white;
+text-decoration: none;
+}
+a:hover {
+color: white;
+text-decoration: none;
+}
+a:active {
+color: white;
+text-decoration: none;
+}
