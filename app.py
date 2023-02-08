@@ -19,7 +19,12 @@ def docentlogin():
 
 @app.route("/studentlogin")
 def studentlogin():
-    return render_template("studentlogin.html")
+    if request.method == 'POST':
+        if request.form['username'] != '' or request.form[password] != '' :
+            error = 'Invalid Credentials Try Again'
+        else:
+            return redirect(url_for('studenthome'))
+    return render_template('studentlogin.html')
 
 @app.route("/adminlogin")
 def adminlogin():
