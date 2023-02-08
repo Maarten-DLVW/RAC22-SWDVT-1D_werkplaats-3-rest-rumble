@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DdlMappings">
+    <mapping uuid="fa00a99b-b469-44c4-affd-dc74f97db3d0" name="rumble Mapping">
+      <data-sources db="652f880c-ed40-4904-8c8c-e25d82134a85" ddl="279f9ef4-d9e2-4a88-9867-f418b011342a" />
+    </mapping>
+  </component>
+</project>
