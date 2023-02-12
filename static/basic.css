@@ -37,7 +37,7 @@ body {
     font-style: normal;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
-    background-color: var(--c3);
+    background-color: #FFDCD1;
     color: var(--c4);
 }
 img, iframe {border: none; max-width: 100%}
