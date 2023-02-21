@@ -102,14 +102,6 @@ article {background: var(--c2); border-radius: var(--rc); padding: 1em; box-shad
 [style*="--c:"]:first-child, section>section:first-child, article:first-child {margin-left:0}
 [style*="--c:"]:last-child, section>section:last-child, article:last-child {margin-right:0}
 
-/* Mark: Toegevoegd aan basic.css */
-main,footer {
-    margin: 0 auto;
-    width: 60%;
-    text-align: left;
-    padding: 0 20px;
-}
-
 section>section {
     color: #fff;
     background-color: var(--c1);
@@ -179,11 +171,16 @@ text-decoration: none;
 
 /* Text box */
 .rectangle {
-    width: 40%;
-    height: 800px;
+    width: 35%;
+    min-height: 500px;
     background-color: #FFF0E2;
-    align-items: center;
-    justify-content: center;
     border-radius: 50px;
     font-size: 20px;
+    margin: 5px;
+    text-align: center;
+    float: left;
+}
+
+header {
+    text-align: center;
 }

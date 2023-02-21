@@ -13,8 +13,8 @@ function get_students() {
     }
     
     function show_students(student_info) {
-        $("#attendanceBlock").empty()
-        for(student of student_info["students"]) {
-            $("#attendanceBlock").append(`<li> ${student["name"]} ${student["status"]} </li>`)
-        }
+            $("#attendancePresent").empty()
+            for(student of student_info["students"]) {
+                $("#attendancePresent").append(`<li> ${student["name"]} ${student["status"]} </li>`)
+            }
     }
