@@ -176,3 +176,14 @@ a:active {
 color: white;
 text-decoration: none;
 }
+
+/* Text box */
+.rectangle {
+    width: 40%;
+    height: 800px;
+    background-color: #FFF0E2;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    font-size: 20px;
+}
