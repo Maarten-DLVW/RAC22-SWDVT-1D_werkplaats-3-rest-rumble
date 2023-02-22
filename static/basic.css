@@ -178,7 +178,8 @@ text-decoration: none;
     font-size: 20px;
     margin: 5px;
     text-align: center;
-    float: left;
+    display: inline-block;
+    vertical-align: top;
     color: green;
 }
 
@@ -190,8 +191,13 @@ text-decoration: none;
     font-size: 20px;
     margin: 5px;
     text-align: center;
-    float: left;
+    display: inline-block;
+    vertical-align: top;
     color: red;
+}
+
+.boxWrapper {
+    text-align: center
 }
 
 header {
