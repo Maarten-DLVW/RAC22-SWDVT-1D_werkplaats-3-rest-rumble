@@ -48,11 +48,11 @@ def list_attendance_api():
     return jsonify(
         {
             "students": [
-                {"name": "Mark", "status": "aanwezig"},
-                {"name": "Jane", "status": "afwezig"},
-                {"name": "John", "status": "aanwezig"},
-                {"name": "Henk", "status": "aanwezig"},
-                {"name": "Yooo", "status": "afwezig"}
+                {"name": "Mark", "status": "1"},
+                {"name": "Jane", "status": "0"},
+                {"name": "John", "status": "1"},
+                {"name": "Henk", "status": "1"},
+                {"name": "Yooo", "status": "0"}
             ]
         }
     )

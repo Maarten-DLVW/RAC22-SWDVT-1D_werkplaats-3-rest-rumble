@@ -14,7 +14,13 @@ function get_students() {
     
     function show_students(student_info) {
             $("#attendancePresent").empty()
+            $("#attendanceAbsent").empty()
             for(student of student_info["students"]) {
-                $("#attendancePresent").append(`<li> ${student["name"]} ${student["status"]} </li>`)
+                if (student["status"] == 1 ) {
+                    $("#attendancePresent").append(`<li> ${student["name"]} </li>`)
+                }
+                else {
+                    $("#attendanceAbsent").append(`<li> ${student["name"]} </li>`)
+                }
             }
     }
