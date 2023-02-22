@@ -52,7 +52,6 @@ def list_attendance_api():
                 {"name": "Jane", "status": "0"},
                 {"name": "John", "status": "1"},
                 {"name": "Henk", "status": "1"},
-                {"name": "Yooo", "status": "0"}
             ]
         }
     )
