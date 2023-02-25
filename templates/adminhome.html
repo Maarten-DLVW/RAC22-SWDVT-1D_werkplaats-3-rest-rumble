@@ -4,12 +4,42 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Admin Home</title>
+    <link rel="stylesheet" href="/static/css.css" type="text/css">
     <link rel="stylesheet" href="/static/basic.css" type="text/css">
 </head>
+<header id="navbar">
+      <nav class="navbar-container container">
+        <a href="/" class="home-link">
+          <img src="/static/hrlogo.png" class="navbar-logo">
+          Hogeschool Rotterdam
+        </a>
+        <button
+          type="button"
+          id="navbar-toggle"
+          aria-controls="navbar-menu"
+          aria-label="Toggle menu"
+          aria-expanded="false"
+        >
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <div id="navbar-menu" aria-labelledby="navbar-toggle">
+          <ul class="navbar-links">
+            <li class="navbar-item"><a class="navbar-link" href="/">Les</a></li>
+            <li class="navbar-item"><a class="navbar-link" href="/"></a></li>
+            <li class="navbar-item"><a class="navbar-link" href="/">Profile</a></li>
+            <li class="navbar-item"><a class="navbar-link" href="/">Log out</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
 <body>
     <center>
     <h1>Admin home</h1>
 </center>
 </body>
 </html>
+
+<script src="../static/app.js"></script>
