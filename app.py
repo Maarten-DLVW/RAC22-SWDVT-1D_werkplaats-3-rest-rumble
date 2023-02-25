@@ -1,10 +1,12 @@
-from flask import Flask, render_template, jsonify, url_for, flash, request, redirect, Response
+from flask import Flask
+from flask import render_template, url_for, flash, request, redirect, Response
 import sqlite3
 from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user, current_user
 
+
 app = Flask(__name__)
 app.debug=True
-app.secret_key = 'MachineKey'
+app.secret_key = '39201511d67c769063efb781831eac5cb95b460efbbab33a9ef9f469c13df166'
 
 # a simple demo dataset will be created.
 LISTEN_ALL = "0.0.0.0"
@@ -12,8 +14,30 @@ FLASK_IP = LISTEN_ALL
 FLASK_PORT = 81
 FLASK_DEBUG = True
 
-login_manager = LoginManager()
+login_manager = LoginManager(app)
 login_manager.login_view = "login"
+
+class User(UserMixin):
+    def __init__(self, id, email, password):
+         self.id = (id)
+         self.email = email
+         self.password = password
+         self.authenticated = False
+    def is_active(self):
+         return self.is_active()
+    def is_anonymous(self):
+         return False
+    def is_authenticated(self):
+         return self.authenticated
+    def is_active(self):
+         return True
+    def get_id(self):
+         return self.id
+
+db = sqlite3
+@login_manager.user_loader
+def load_user(user_id):
+        return User(int(user_id))
 
 @app.route("/")
 def index():
@@ -25,11 +49,10 @@ def docentlogin():
 
 @app.route("/studentlogin")
 def studentlogin():
-    return render_template('studentlogin.html')
-
-@app.route("/adminlogin")
-def adminlogin():
-    return render_template("adminlogin.html")
+    return render_template("studentlogin.html")
+@app.route("/nav")
+def nav():
+    return render_template("nav.html")
 
 @app.route("/docenthome")
 def docenthome():
@@ -43,26 +66,10 @@ def studenthome():
 def adminhome():
     return render_template("adminhome.html")
 
-@app.route("/api/attendance")
-def list_attendance_api():
-    return jsonify(
-        {
-            "students": [
-                {"name": "Mark", "status": "1"},
-                {"name": "Jane", "status": "0"},
-                {"name": "John", "status": "1"},
-                {"name": "Henk", "status": "0"},
-                {"name": "Karel", "status": "1"},
-                {"name": "Jan", "status": "0"},
-                {"name": "Ralph", "status": "1"},
-                {"name": "Melanie", "status": "0"},
-            ]
-        }
-    )
+@app.route("/adminlogin")
+def adminlogin():
+    return render_template("adminlogin.html")
 
-@app.route("/attendance")
-def list_attendance():
-    return render_template("attendance.html")
 
 if __name__ == "__main__":
     app.run(host=FLASK_IP, port=FLASK_PORT, debug=FLASK_DEBUG)

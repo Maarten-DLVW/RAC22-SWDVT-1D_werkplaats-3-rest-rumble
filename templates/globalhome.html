@@ -1,22 +1,27 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/basic.css" type="text/css">
-    <link rel="stylesheet" href="/static/css.css" type="text/css">
-</head>
-<body>
-    <header>
-        <img src="/static/hrlogo.png"   width="80" height="75">
-        <h1>Rotterdam Academy check-in system</h1>
-    </header>
-    <div class="wrapper">
-        <p>Choose your role</p>
-        <li><a href="/docentlogin" class="buttonstyle_red">Docent</a></li>
-        <li><a href="/studentlogin" class="buttonstyle_red">Student</a></li>
-        <li><a href="/adminlogin" class="buttonstyle_red">Admin</a></li>
+  <head>
+      <title>Home</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='basic.css') }}">
+  </head>
+  <body>
+    <center>
+    <img src="/static/hrlogo.png"   width="80" height="75">
+    <h1>Rotterdam Academy check-in system</h1>
+    <p>Choose your role</p>
+    <li><a href="/docentlogin" class="buttonstyle_red">Docent</a></li>
+    <li><a href="/studentlogin" class="buttonstyle_red">Student</a></li>
+    <li><a href="/adminlogin" class="buttonstyle_red">Admin</a></li>
+    </ul>
+</center>
+
+      </nav>
     </div>
-</body>
+    <div class="container">
+    </div>
+  </body>
 </html>
+<script src="../static/app.js"></script>
