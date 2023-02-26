@@ -168,3 +168,6 @@ yarn-error.log*
 __pycache__/app.cpython-310.pyc
 *.pyc
 *.pyc
+*.pyc
+__pycache__/app.cpython-310.pyc
+__pycache__/app.cpython-310.pyc
