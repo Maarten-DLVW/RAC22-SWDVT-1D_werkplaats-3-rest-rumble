@@ -1,5 +1,4 @@
-from flask import Flask
-from flask import render_template, url_for, flash, request, redirect, Response
+from flask import Flask, jsonify, render_template, url_for, flash, request, redirect, Response
 import sqlite3
 from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user, current_user
 
@@ -50,6 +49,7 @@ def docentlogin():
 @app.route("/studentlogin")
 def studentlogin():
     return render_template("studentlogin.html")
+
 @app.route("/nav")
 def nav():
     return render_template("nav.html")
@@ -74,6 +74,22 @@ def adminlogin():
 def attendance():
     return render_template("attendance.html")
 
+@app.route("/api/attendance")
+def list_attendance_api():
+    return jsonify(
+        {
+            "students": [
+                {"name": "Mark", "status": "1"},
+                {"name": "Jane", "status": "0"},
+                {"name": "John", "status": "1"},
+                {"name": "Henk", "status": "0"},
+                {"name": "Karel", "status": "1"},
+                {"name": "Jan", "status": "0"},
+                {"name": "Ralph", "status": "1"},
+                {"name": "Melanie", "status": "0"},
+            ]
+        }
+    )
 
 if __name__ == "__main__":
     app.run(host=FLASK_IP, port=FLASK_PORT, debug=FLASK_DEBUG)
