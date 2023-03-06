@@ -90,6 +90,9 @@ def list_attendance_api():
             ]
         }
     )
+@app.route("/qrcode")
+def qrcode():
+    return render_template("qrcode.html")
 
 if __name__ == "__main__":
     app.run(host=FLASK_IP, port=FLASK_PORT, debug=FLASK_DEBUG)
