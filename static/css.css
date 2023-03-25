@@ -28,8 +28,8 @@ img{
 }
 
 #navbar {
-  --navbar-height: 64px;
-  position: fixed;
+  --navbar-height: 50px;
+  position: relative;
   height: var(--navbar-height);
   background-color: darkred;
   left: 0;
@@ -148,7 +148,7 @@ img{
 
 .navbar-links {
   list-style: none;
-  position: absolute;
+  position: relative;
   background-color: indianred;
   display: flex;
   flex-direction: column;
