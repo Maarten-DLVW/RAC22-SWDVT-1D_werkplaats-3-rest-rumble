@@ -190,3 +190,21 @@ img{
     height: 100%;
   }
 }
+
+
+.table {
+	width:100%;
+	border:1px solid;
+}
+
+.table-header {
+	display:flex;
+	width:100%;
+	background:#000;
+	padding: 0;
+}
+
+.table-row {
+  display: flex;
+  background-color: #eeeeee;
+}
