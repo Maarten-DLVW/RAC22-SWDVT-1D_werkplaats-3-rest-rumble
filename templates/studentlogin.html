@@ -4,28 +4,32 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Student Login</title>
     <link rel="stylesheet" href="/static/basic.css" type="text/css">
     <link rel="stylesheet" href="/static/css.css" type="text/css">
 </head>
 <body>
+ <form method="POST">
     <center>
     <img src="/static/hrlogo.png" width="75" height="75">
     <h1>Student login</h1>
     <div id="nav-placeholder">
+
 </div>
-    <div class="container">
-        <label username </label>
-        <input type="text" placeholder="Enter Email" class="Email" name="Email" required>
-        <input type="password" placeholder="Enter Password" name="password" required>
-        <button class="buttonstyle_red" type="submit">Login</button>
+
+   <div class="container">
+        <label for="email"><b>email</b></label>
+        <input type="text" id="email" placeholder="Enter email" class="email" name="email" required>
+
+        <label for="password"><b>Password</b></label>
+        <input type="password" id="password" placeholder="Enter Password" name="password" required>
+        <button class="buttonstyle_red" value="login" type="submit">Login</button>
         <input type="checkbox" checked="checked">Remember me
         <r><a href="/" class="cancelbtn">Cancel</a></r>
     </div>
     </center>
-
-<script src="../static/app.js">
-
-</script>
+</form>
 </body>
+<script src="../static/app.js">
+</script>
 </html>

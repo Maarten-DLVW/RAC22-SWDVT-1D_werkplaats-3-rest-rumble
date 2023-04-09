@@ -2,9 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    {% if title %}
+   <title>{{ title }}</title>
+  {% endif %}
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Home</title>
     <link rel="stylesheet" href="/static/css.css" type="text/css">
     <link rel="stylesheet" href="/static/basic.css" type="text/css">
 </head>
@@ -29,7 +31,7 @@
       <div id="navbar-menu" aria-labelledby="navbar-toggle">
         <ul class="navbar-links">
           <li class="navbar-item"><a class="navbar-link" href="/">Les</a></li>
-          <li class="navbar-item"><a class="navbar-link" href="/"></a></li>
+          <li class="navbar-item"><a class="navbar-link" href="/">Klassen</a></li>
           <li class="navbar-item"><a class="navbar-link" href="/">Profile</a></li>
           <li class="navbar-item"><a class="navbar-link" href="/">Log out</a></li>
         </ul>
