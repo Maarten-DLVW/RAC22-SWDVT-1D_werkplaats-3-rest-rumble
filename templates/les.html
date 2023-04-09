@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form id="myForm" >
+  <label for="les">les:</label>
+  <input type="text" id="les" name="les"><br><br>
+
+  <label for="lokaal">lokaal:</label>
+  <input type="text" id="lokaal" name="lokaal"><br><br>
+
+  <label for="date">date:</label>
+  <input type="datetime-local" id="Date" name="date"><br><br>
+  <button type="button" onclick="submitData()" >Submit</button>
+
+
+<table>
+  <tr>
+    <th>Les</th>
+    <th>Lokaal</th>
+    <th>Date</th>
+  </tr>
+  {% for row in rows %}
+  <tr>
+    <td>{{ row[0] }}</td>
+    <td>{{ row[1] }}</td>
+    <td>{{ row[2] }}</td>
+  </tr>
+  {% endfor %}
+</table>
+</form>
+<script src="../static/app.js"></script>
+{% endblock %}

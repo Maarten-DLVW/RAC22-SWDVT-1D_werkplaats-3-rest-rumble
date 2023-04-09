@@ -60,6 +60,21 @@ function show_students(student_info) {
         });
         document.getElementById("qrcode-container").style.display = "block";
       } else {
-        alert("Please enter a valid URL");
       }
     }
+
+function submitData() {
+  const form = document.getElementById('myForm');
+  const formData = new FormData(form);
+
+  axios.post('/les', formData)
+    .then(response => {
+      console.log(response.data);
+    })
+    .catch(error => {
+      console.log(error);
+    });
+}
+
+
+submitData()

@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, render_template, url_for, flash, request, redirect, session
 from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user, current_user
-
-
+import json
+from http.server import BaseHTTPRequestHandler, HTTPServer
 from werkzeug.security import check_password_hash
 import sqlite3 as sql
 
@@ -97,10 +97,17 @@ def studentlogin():
 
     return render_template("studentlogin.html")
 
-@app.route("/nav")
-def nav():
-    return render_template("nav.html")
-
+@app.route("/les")
+def les():
+    les = request.form.get('les')
+    lokaal = request.form.get('lokaal')
+    Date = request.form.get('Date')
+    conn = sql.connect('rumble')
+    c = conn.cursor()
+    c.execute("INSERT INTO bijenkomst (les, lokaal, Date) VALUES (?, ?, ?)", (les, lokaal, Date))
+    conn.commit()
+    conn.close()
+    return render_template('les.html')
 @app.route("/docenthome")
 def docenthome():
     return render_template("docenthome.html")
@@ -159,6 +166,30 @@ def list_attendance_api():
 @app.route("/qrcode")
 def qrcode():
     return render_template("qrcode.html")
+
+@app.route('/display_data')
+def display_data():
+    conn = sql.connect('rumble')
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT les,lokaal,Date FROM bijenkomst")
+    rows = cursor.fetchall()
+
+    conn.close()
+
+    return render_template('les.html', rows=rows)
+
+@app.route('/dsplay_data')
+def dsplay_data():
+    conn = sql.connect('rumble')
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT les,lokaal,Date FROM bijenkomst")
+    rows = cursor.fetchall()
+
+    conn.close()
+
+    return render_template('bijenkomst.html', rows=rows)
 
 if __name__ == "__main__":
     app.run(host=FLASK_IP, port=FLASK_PORT, debug=FLASK_DEBUG)
