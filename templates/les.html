@@ -13,20 +13,20 @@
   <button type="button" onclick="submitData()" >Submit</button>
 
 
-<table>
-  <tr>
-    <th>Les</th>
-    <th>Lokaal</th>
-    <th>Date</th>
-  </tr>
-  {% for row in rows %}
-  <tr>
-    <td>{{ row[0] }}</td>
-    <td>{{ row[1] }}</td>
-    <td>{{ row[2] }}</td>
-  </tr>
-  {% endfor %}
-</table>
-</form>
+  <table>
+    <tr>
+      <th>Les</th>
+      <th>Lokaal</th>
+      <th>Date</th>
+    </tr>
+    {% for row in rows %}
+    <tr>
+      <td>{{ row[0] }}</td>
+      <td>{{ row[1] }}</td>
+      <td>{{ row[2] }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  </form>
 <script src="../static/app.js"></script>
 {% endblock %}

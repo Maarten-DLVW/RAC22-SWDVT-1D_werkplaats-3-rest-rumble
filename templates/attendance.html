@@ -22,6 +22,18 @@
         <li>Afwezig</li>
     </div>
     </div>
+    <h1>Overzicht van ingecheckte studenten</h1>
+    <table>
+        <tr>
+            <th>Naam</th>
+            <th>Student ID</th>
+        </tr>
+        {% for student in studenten %}
+        <tr>
+            <td>{{ student[0] }}</td>
+            <td>{{ student[1] }}</td>
+        </tr>
+        {% endfor %}
     <script>
         get_students();
         setInterval(get_students, 1000)

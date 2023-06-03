@@ -14,33 +14,6 @@ const navbarLinksContainer = navbarMenu.querySelector('.navbar-links');
 navbarLinksContainer.addEventListener('click', (e) => e.stopPropagation());
 navbarMenu.addEventListener('click', toggleNavbarVisibility);
 
-function get_students() {
-    $.ajax({
-        url: "/api/attendance",
-        type: "GET",
-        dataType: "json",
-        success: function(data) {
-            show_students(data)
-        },
-        error: function(data) {
-            console.log("Error: " + data)
-        }
-    })
-}
-
-function show_students(student_info) {
-        $("#attendancePresent").empty()
-        $("#attendanceAbsent").empty()
-        for(student of student_info["students"]) {
-            if (student["status"] == 1 ) {
-                $("#attendancePresent").append(`<li> ${student["name"]} </li>`)
-            }
-            else {
-                $("#attendanceAbsent").append(`<li> ${student["name"]} </li>`)
-            }
-        }
-}
-
     function generateQRCode() {
       let website = document.getElementById("website").value;
       if (website) {
@@ -76,5 +49,94 @@ function submitData() {
     });
 }
 
+ const form = document.querySelector("#attendance-form");
+
+        form.addEventListener("submit", (event) => {
+            event.preventDefault();
+            const data = {
+                user_id: form.user_id.value,
+                class_id: form.class_id.value
+            };
+            fetch("/studenthome", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            }).then(response => {
+                console.log(response.json());
+            }).catch(error => {
+                console.error(error);
+            });
+        });
+
+$(document).ready(function() {
+    // Haal lessen op en vul het selectie-element
+    $.ajax({
+        url: '/lessons',
+        type: 'GET',
+        success: function(data) {
+            var lessonSelect = $('#lessonSelect');
+            $.each(data, function(index, lesson) {
+                lessonSelect.append($('<option>', {
+                    value: lesson.id,
+                    text: lesson.name
+                }));
+            });
+        },
+        error: function(error) {
+            console.error('Fout bij het ophalen van lessen:', error);
+        }
+    });
+
+    // Verwerk het formulier voor het toevoegen van lessen
+    $('#lessonForm').submit(function(event) {
+        event.preventDefault();
+
+        var Name = $('#Name').val();
+
+        $.ajax({
+            url: '/add_lesson',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ "name": name }),
+            success: function(data) {
+                console.log(data.message);
+                // Voeg hier eventueel verdere verwerking toe
+            },
+            error: function(error) {
+                console.error('Fout bij het toevoegen van de les:', error);
+            }
+        });
+    });
+
+    // Verwerk het klikken op de knop voor het ophalen van aanwezigheidsgegevens
+    $('#getAttendanceBtn').click(function() {
+        var lessonId = $('#lessonSelect').val();
+
+        $.ajax({
+            url: '/attendance/' + lessonId,
+            type: 'GET',
+            success: function(data) {
+                var attendanceTableBody = $('#attendanceTableBody');
+                attendanceTableBody.empty();
+
+                $.each(data.attendance_data, function(index, row) {
+                    var studentNaam = row.name;
+                    var status = row.status;
+
+                    var tr = $('<tr>');
+                    var tdName = $('<td>').text(studentNaam);
+                    var tdStatus = $('<td>').text(status);
+                    tr.append(tdName, tdStatus);
+                    attendanceTableBody.append(tr);
+                });
+            },
+            error: function(error) {
+                console.error('Fout bij het ophalen van de aanwezigheidsgegevens:', error);
+            }
+        });
+    });
+});
 
 submitData()

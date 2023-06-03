@@ -1,0 +1,27 @@
+{% extends 'stdlayout.html' %}
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Overzicht van ingecheckte studenten</h1>
+    <table>
+        <tr>
+            <th>Naam</th>
+            <th>Student ID</th>
+            <th>Status</th>
+        </tr>
+        {% for row in rows %}
+        <tr>
+            <td>{{ row[0] }}</td>
+            <td>{{ row[1] }}</td>
+            <td>{{ row[2] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+<script src="../static/app.js">
+</script>
+{% endblock %}

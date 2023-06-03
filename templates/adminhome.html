@@ -5,5 +5,32 @@
     <header>
         <h1>Admin home</h1>
     </header>
-
+    <body>
+    <h1>Attendance Records</h1>
+    <table>
+        <tr>
+            <th>User ID</th>
+            <th>Class ID</th>
+            <th>Date</th>
+        </tr>
+        {% for row in rows %}
+        <tr>
+            <td>{{ row[0] }}</td>
+            <td>{{ row[1] }}</td>
+            <td>{{ row[2] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <script>
+        setInterval(() => {
+            fetch("/adminhome").then(response => {
+                return response.text();
+            }).then(html => {
+                document.querySelector("table").innerHTML = html;
+            }).catch(error => {
+                console.error(error);
+            });
+        }, 5000);
+    </script>
+</body>
 {% endblock %}

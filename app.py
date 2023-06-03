@@ -4,6 +4,7 @@ import json
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from werkzeug.security import check_password_hash
 import sqlite3 as sql
+import datetime
 
 app = Flask(__name__)
 app.debug = True
@@ -84,7 +85,7 @@ def studentlogin():
         email = request.form["email"]
         password = request.form["password"]
 
-        query = "SELECT email,password FROM leerling where email= '"+email+"' and password= '"+password+"'"
+        query = "SELECT email,password FROM studenten where email= '"+email+"' and password= '"+password+"'"
         cursor.execute(query)
 
         results = cursor.fetchall()
@@ -99,12 +100,12 @@ def studentlogin():
 
 @app.route("/les")
 def les():
-    les = request.form.get('les')
+    name = request.form.get('name')
     lokaal = request.form.get('lokaal')
     Date = request.form.get('Date')
     conn = sql.connect('rumble')
     c = conn.cursor()
-    c.execute("INSERT INTO bijenkomst (les, lokaal, Date) VALUES (?, ?, ?)", (les, lokaal, Date))
+    c.execute("INSERT INTO lessons (name, lokaal, Date) VALUES (?, ?, ?)", (name, lokaal, Date))
     conn.commit()
     conn.close()
     return render_template('les.html')
@@ -112,13 +113,18 @@ def les():
 def docenthome():
     return render_template("docenthome.html")
 
-@app.route("/studenthome")
+@app.route("/studenthome", methods=['POST'])
 def studenthome():
-    return render_template("studenthome.html")
+    return render_template('studenthome.html')
 
 @app.route("/adminhome")
 def adminhome():
-    return render_template("adminhome.html")
+    conn = sql.connect("rumble")
+    c = conn.cursor()
+    c.execute("SELECT * FROM attendance")
+    rows = c.fetchall()
+    conn.close()
+    return render_template("adminhome.html", rows=rows)
 
 @app.route("/adminlogin", methods=["GET","POST"])
 def adminlogin():
@@ -143,26 +149,56 @@ def adminlogin():
 
     return render_template("adminlogin.html")
 
-@app.route("/attendance")
-def attendance():
-    return render_template("attendance.html")
+@app.route("/attendance", methods=["POST"])
+def update_attendance():
+    data = request.get_json()
+    name = data['name']
+    status = data['status']
+    klas = data['klas']
 
-@app.route("/api/attendance")
-def list_attendance_api():
-    return jsonify(
-        {
-            "students": [
-                {"name": "Mark", "status": "1"},
-                {"name": "Jane", "status": "0"},
-                {"name": "John", "status": "1"},
-                {"name": "Henk", "status": "0"},
-                {"name": "Karel", "status": "1"},
-                {"name": "Jan", "status": "0"},
-                {"name": "Ralph", "status": "1"},
-                {"name": "Melanie", "status": "0"},
-            ]
-        }
-    )
+    conn = sql.connect('rumble')
+    cursor = conn.cursor()
+    cursor.execute("INSERT INTO attendance (name, date, status, klas) VALUES (?, date('now'), ?, ?)", (name, status, klas))
+    conn.commit()
+    conn.close()
+
+    return jsonify({'message': 'Attendance updated successfully'})
+
+@app.route('/lessons', methods=['GET'])
+def get_lessons():
+    conn = sql.connect('rumble')
+    cursor = conn.cursor()
+    cursor.execute("SELECT id, name FROM lessons")
+    lessons = cursor.fetchall()
+    conn.close()
+
+    return jsonify(lessons)
+
+@app.route('/add_lesson', methods=['POST'])
+def add_lesson():
+    data = request.get_json()
+    name = data['name']
+
+    conn = sql.connect('rumble')
+    cursor = conn.cursor()
+    cursor.execute("INSERT INTO lessons (name, date) VALUES (?, date('now'))", (name,))
+    lesson_id = cursor.lastrowid
+    conn.commit()
+    conn.close()
+
+    return jsonify({'message': 'Lesson added successfully', 'lesson_id': lesson_id})
+
+@app.route('/attendance/<int:lesson_id>', methods=['GET'])
+def get_attendance(lesson_id):
+    conn = sql.connect('rumble')
+    cursor = conn.cursor()
+    cursor.execute("SELECT students.name, attendance_records.status FROM attendance_records INNER JOIN students ON attendance_records.student_id = students.id WHERE attendance_records.lesson_id = ?", (lesson_id,))
+    attendance_data = cursor.fetchall()
+    conn.close()
+
+    return jsonify({'attendance_data': attendance_data})
+
+
 @app.route("/qrcode")
 def qrcode():
     return render_template("qrcode.html")
@@ -172,7 +208,7 @@ def display_data():
     conn = sql.connect('rumble')
     cursor = conn.cursor()
 
-    cursor.execute("SELECT les,lokaal,Date FROM bijenkomst")
+    cursor.execute("SELECT les,lokaal,Date FROM lessons")
     rows = cursor.fetchall()
 
     conn.close()
@@ -184,12 +220,21 @@ def dsplay_data():
     conn = sql.connect('rumble')
     cursor = conn.cursor()
 
-    cursor.execute("SELECT les,lokaal,Date FROM bijenkomst")
+    cursor.execute("SELECT id,name,Date FROM lessons")
     rows = cursor.fetchall()
 
     conn.close()
 
     return render_template('bijenkomst.html', rows=rows)
+
+@app.route('/dash')
+def dash():
+    conn = sql.connect('rumble')
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM attendance")
+    rows = cursor.fetchall()
+    conn.close()
+    return render_template('dash.html', rows=rows)
 
 if __name__ == "__main__":
     app.run(host=FLASK_IP, port=FLASK_PORT, debug=FLASK_DEBUG)
