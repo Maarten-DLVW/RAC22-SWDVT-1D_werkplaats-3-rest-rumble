@@ -3,25 +3,32 @@
 {% block content %}
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Overzicht</title>
 </head>
 <body>
 <h1>Overzicht van ingecheckte studenten</h1>
     <table>
         <tr>
             <th>Naam</th>
-            <th>Student ID</th>
+            <th>Student Nummer</th>
+            <th>Klas</th>
             <th>Status</th>
+            <th>Inchecktijd</th>
         </tr>
         {% for row in rows %}
         <tr>
             <td>{{ row[0] }}</td>
             <td>{{ row[1] }}</td>
             <td>{{ row[2] }}</td>
+            <td>{{ row[3] }}</td>
+            <td>{{ row[4] }}</td>
         </tr>
         {% endfor %}
     </table>
 </body>
 <script src="../static/app.js">
+      setInterval(function() {
+    location.reload();
+  }, 5000)
 </script>
 {% endblock %}

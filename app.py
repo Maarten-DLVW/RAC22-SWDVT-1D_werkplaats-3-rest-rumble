@@ -4,7 +4,7 @@ import json
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from werkzeug.security import check_password_hash
 import sqlite3 as sql
-import datetime
+from datetime import datetime
 
 app = Flask(__name__)
 app.debug = True
@@ -20,8 +20,8 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = "login"
 
-
-
+current_datetime = datetime.now()
+formatted_datetime = current_datetime.strftime('%Y-%m-%d %H:%M:%S')
 
 class User(UserMixin):
     def __init__(self, id, email, password):
@@ -113,7 +113,7 @@ def les():
 def docenthome():
     return render_template("docenthome.html")
 
-@app.route("/studenthome", methods=['POST'])
+@app.route("/studenthome", methods=['GET','POST'])
 def studenthome():
     return render_template('studenthome.html')
 
@@ -155,10 +155,11 @@ def update_attendance():
     name = data['name']
     status = data['status']
     klas = data['klas']
+    studentnummer = data['studentnummer']
 
     conn = sql.connect('rumble')
     cursor = conn.cursor()
-    cursor.execute("INSERT INTO attendance (name, date, status, klas) VALUES (?, date('now'), ?, ?)", (name, status, klas))
+    cursor.execute("INSERT INTO attendance (name, date, status, klas, studentnummer) VALUES (?, ?, ?, ?, ?)", (name, formatted_datetime, status, klas, studentnummer))
     conn.commit()
     conn.close()
 
@@ -231,7 +232,7 @@ def dsplay_data():
 def dash():
     conn = sql.connect('rumble')
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM attendance")
+    cursor.execute("SELECT name, studentnummer, klas, status, date FROM attendance")
     rows = cursor.fetchall()
     conn.close()
     return render_template('dash.html', rows=rows)

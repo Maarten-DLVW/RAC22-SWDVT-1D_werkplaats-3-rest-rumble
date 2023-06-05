@@ -7,6 +7,8 @@
     <form id="attendanceForm">
         <label for="name">Naam:</label>
         <input type="text" id="name" name="name" required><br><br>
+        <label for="studentnummer">Studentnummer:</label>
+        <input type="text" id="studentnummer" name="studentnummer" required><br><br>
         <label for="klas">Klas:</label>
         <input type="text" id="klas" name="klas" required><br><br>
         <label for="status">Status:</label>
@@ -24,11 +26,13 @@
             var name = document.getElementById("name").value;
             var klas = document.getElementById("klas").value;
             var status = document.getElementById("status").value;
+            var studentnummer = document.getElementById("studentnummer").value;
 
             var data = {
                 "name": name,
                 "status": status,
-                "klas": klas
+                "klas": klas,
+                "studentnummer": studentnummer
             };
 
             fetch('/attendance', {
@@ -41,7 +45,13 @@
             .then(response => response.json())
             .then(data => {
                 console.log(data.message);
-                // Voeg hier eventueel verdere verwerking toe
+
+                document.getElementById("name").value = "";
+                document.getElementById("klas").value = "";
+                document.getElementById("status").value = "";
+                document.getElementById("studentnummer").value = "";
+
+                location.reload();
             })
             .catch(error => {
                 console.error('Fout bij het bijwerken van de aanwezigheid:', error);
@@ -50,5 +60,6 @@
     </script>
 </body>
 <script src="../static/app.js">
+    setInterval(update_attendance, 1000)
 </script>
 {% endblock %}
